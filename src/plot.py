@@ -24,5 +24,6 @@ class OncePlotter:
         Args:
             data: データ(list of value)
         """
+        plt.cla()
         plt.plot(data)
         plt.pause(0.01)

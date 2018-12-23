@@ -38,10 +38,11 @@ class BubbleSort:
         else:
             check = lambda a, b: True if a > b else False
 
+        swapped = False
         for i in range(len(data) - 1):
             if check(data[i], data[i + 1]):
                 data[i], data[i + 1] = data[i + 1], data[i]
-                return False
+                swapped = True
 
-        return True
+        return not swapped
 
