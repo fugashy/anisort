@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+import sys, os
+import pathlib
+p = pathlib.Path(os.path.dirname(__file__) + '/..')
+root_dir_path = str(p.resolve())
+sys.path.append(root_dir_path)
+
+import src.sort as sort
+import src.plot as plot
+
+import random
+import yaml
+
+
+if __name__ == '__main__':
+    fd = open(root_dir_path + '/config/sort.yaml')
+    yaml_node = yaml.load(fd)
+
+    data = list(range(yaml_node['data_num']))
+    random.shuffle(data)
+
+    sorter = sort.create(yaml_node['sort'])
+
+    plotter = plot.OncePlotter()
+
+    while True:
+        result = sorter.sort(data)
+        plotter.plot_once(data)
+
+        if result:
+            break
+
+    print('Press enter to exit')
+    input()
