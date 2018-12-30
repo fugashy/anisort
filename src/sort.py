@@ -8,6 +8,10 @@ def create(config_dict):
     elif config_dict['type'] == 'select':
         lower = config_dict['lower']
         return SelectSort(lower)
+    elif config_dict['type'] == 'insert':
+        lower = config_dict['lower']
+        use_bin = config_dict['use_bin']
+        return InsertSort(lower, use_bin)
     else:
         raise NotImplementedError(
                 '{} is not implemented'.format(config_dict['type']))
@@ -39,7 +43,6 @@ class BubbleSort:
             True: 完了
             False: まだやれる
         """
-
         swapped = False
         for i in range(len(data) - 1):
             if self.__check(data[i], data[i + 1]):
@@ -59,8 +62,6 @@ class SelectSort:
             self.__get_id = lambda data: min(
                     range(self.__index, len(data)), key=data.__getitem__)
 
-
-
     def sort(self, data):
         target_index = self.__get_id(data)
         data[self.__index], data[target_index] = data[target_index], data[self.__index]
@@ -68,3 +69,24 @@ class SelectSort:
         if self.__index == len(data):
             return True
         return False
+
+
+class InsertSort:
+    def __init__(self, lower, use_bin=False):
+        self.__i = 1
+        if lower:
+            self.__check = lambda a, b: True if a < b else False
+        else:
+            self.__check = lambda a, b: True if a > b else False
+
+    def sort(self, data):
+        j = self.__i
+        while j > 0 and self.__check(data[j - 1], data[j]):
+            tmp = data[j - 1]
+            data[j - 1] = data[j]
+            data[j] = tmp
+            j -= 1
+
+        self.__i += 1
+
+        return self.__i == len(data)

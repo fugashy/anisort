@@ -2,6 +2,11 @@ data_num: 100
 
 sort:
   type: bubble
-  lower: True
+  lower: False
+# type: select
+# lower: False
+# type: insert
+# lower: False
+# use_bin: False
 
 one_by_one: True
